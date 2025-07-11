@@ -3,13 +3,24 @@ import MapView from './components/MapView';
 
 function App() {
   return (
-    <div className="App">
-      <header style={{ textAlign: 'center', padding: '1rem 2rem 0 2rem' }}>
-        <img src="/sochum-logo.png" alt="SOCHUM Logo" style={{ height: '80px', marginBottom: '10px' }} />
-        <h2 style={{ margin: 0 }}>Afghanistan Health Zones Dashboard</h2>
-        <p style={{ fontStyle: 'italic', fontSize: '14px', marginTop: '5px' }}>
-          Special Session – UN Third Committee (SOCHUM)
-        </p>
+    <div style={{ fontFamily: 'Segoe UI, sans-serif', backgroundColor: '#f0f2f5' }}>
+      <header style={{
+        padding: "1.2rem 2rem",
+        backgroundColor: "#005cbf",
+        color: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between"
+      }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img src="/sochum-logo.png" alt="SOCHUM Logo" style={{ height: "50px", marginRight: "15px" }} />
+          <div>
+            <h1 style={{ margin: 0, fontSize: "22px" }}>Afghanistan Health Zones Dashboard</h1>
+            <p style={{ margin: 0, fontSize: "14px", fontStyle: "italic" }}>
+              Special Session – UN Third Committee (SOCHUM)
+            </p>
+          </div>
+        </div>
       </header>
 
       <MapView />
@@ -17,4 +28,4 @@ function App() {
   );
 }
 
-export default App; // ✅ No olvides esta línea
+export default App;
