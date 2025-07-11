@@ -18,9 +18,16 @@ const MapView = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{
+      display: "flex",
+      height: "calc(100vh - 140px)",
+      margin: "0 2rem 2rem 2rem",
+      boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+      borderRadius: "10px",
+      overflow: "hidden"
+    }}>
       <div style={{ flex: 1 }}>
-        <MapContainer center={[33.94, 67.71]} zoom={6} style={{ height: "90vh", width: "100%" }}>
+        <MapContainer center={[33.94, 67.71]} zoom={6} style={{ height: "100%", width: "100%" }}>
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://carto.com/">CartoDB</a> contributors'
@@ -52,13 +59,18 @@ const MapView = () => {
       </div>
 
       <div style={{
-        width: "300px",
-        padding: "1.5rem",
-        backgroundColor: "#f5f5f5",
-        borderLeft: "1px solid #ddd",
-        marginLeft: "5px",
-        overflowY: "auto"
-      }}>
+  width: "360px",
+  padding: "2rem",
+  backgroundColor: "#f4faff", // azul muy claro tipo ONU
+  borderLeft: "2px solid #c0d3e8",
+  boxShadow: "-4px 0 12px rgba(0,0,0,0.06)",
+  fontFamily: "Segoe UI, Roboto, Arial, sans-serif",
+  fontSize: "15px",
+  lineHeight: "1.5",
+  color: "#2a2a2a",
+  overflowY: "auto"
+}}>
+
         <ZoneInfoPanel
           zone={selectedZone}
           sazActive={selectedZone ? sazStatus[selectedZone.name] : false}

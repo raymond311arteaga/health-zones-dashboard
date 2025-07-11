@@ -38,15 +38,25 @@ const ProposalsModal = ({ level, onClose }) => {
         overflowY: "auto",
         boxShadow: "0 0 10px rgba(0,0,0,0.3)"
       }}>
-        <h3>International Proposals for {level} Zone</h3>
-        <ul>
+        <h3 style={{ marginTop: 0 }}>International Proposals for {level} Zone</h3>
+        <ul style={{ paddingLeft: "1rem" }}>
           {proposals[level].map((item, i) => (
-            <li key={i}>
+            <li key={i} style={{ marginBottom: "0.5rem" }}>
               <b>{item.country}:</b> {item.proposal}
             </li>
           ))}
         </ul>
-        <button onClick={onClose} style={{ marginTop: "15px" }}>Close</button>
+        <button onClick={onClose} style={{
+          marginTop: "15px",
+          padding: "6px 12px",
+          backgroundColor: "#007acc",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer"
+        }}>
+          Close
+        </button>
       </div>
     </div>
   );
