@@ -1,26 +1,98 @@
 export const incidents = [
   {
+    id: 1,
+    country: "Afghanistan",
+    zone: "Red",
+    location: "Kabul",
     position: [34.52, 69.18],
-    description: "Kabul trauma center hit by explosive device. 15 casualties. HPAM launched investigation."
+    description: "Trauma center bombed, 15 casualties."
   },
   {
-    position: [36.75, 66.90],
-    description: "Blocked Red Crescent convoy near Baghlan. Health supplies confiscated by non-state actors."
+    id: 2,
+    country: "Palestine",
+    zone: "Red",
+    location: "Gaza City",
+    position: [31.52, 34.45],
+    description: "Airstrike on primary hospital, 8 killed."
   },
   {
-    position: [31.62, 65.72],
-    description: "Medical staff kidnapped in Kandahar field clinic. ICC notified via HPAM."
+    id: 3,
+    country: "Syria",
+    zone: "Red",
+    location: "Aleppo",
+    position: [36.20, 37.15],
+    description: "Pediatric clinic destroyed by shelling."
   },
   {
-    position: [35.00, 70.90],
-    description: "Cross-border drone strike damaged MSF mobile unit. Legal documentation underway by OHCHR."
+    id: 4,
+    country: "Ukraine",
+    zone: "Yellow",
+    location: "Donetsk",
+    position: [48.00, 37.80],
+    description: "Power cut to emergency center."
   },
   {
-    position: [34.35, 62.21],
-    description: "Obstruction of maternal health transport in Herat. Civilian protests and aid disruption reported."
+    id: 5,
+    country: "Yemen",
+    zone: "Red",
+    location: "Sana'a",
+    position: [15.37, 44.20],
+    description: "Ambulance convoy hit during air raid."
   },
   {
-    position: [32.70, 67.68],
-    description: "Helmand facility looted after militia raid. Surgical equipment stolen, 2 nurses injured."
+    id: 6,
+    country: "Sudan",
+    zone: "Yellow",
+    location: "Khartoum",
+    position: [15.50, 32.55],
+    description: "Doctors detained at border checkpoint."
+  },
+  {
+    id: 7,
+    country: "Myanmar",
+    zone: "Red",
+    location: "Rakhine",
+    position: [20.14, 93.56],
+    description: "Mobile unit targeted by local militia."
+  },
+  {
+    id: 8,
+    country: "Haiti",
+    zone: "Green",
+    location: "Port-au-Prince",
+    position: [18.53, -72.33],
+    description: "Clinic overwhelmed post-riots."
+  },
+  {
+    id: 9,
+    country: "Democratic Republic of the Congo",
+    zone: "Yellow",
+    location: "Goma",
+    position: [-1.67, 29.23],
+    description: "Medical supplies looted by armed group."
+  },
+  {
+    id: 10,
+    country: "Ethiopia",
+    zone: "Red",
+    location: "Tigray",
+    position: [13.50, 39.50],
+    description: "Hospital blocked from receiving aid."
+  },
+  {
+    id: 11,
+    country: "Russia",
+    zone: "Green",
+    location: "Belgorod",
+    position: [50.60, 36.60],
+    description: "Cyberattack on emergency call system."
+  },
+  {
+    id: 12,
+    country: "South Sudan",
+    zone: "Red",
+    location: "Juba",
+    position: [4.85, 31.60],
+    description: "UN convoy with medicine ambushed on rural road."
   }
 ];
