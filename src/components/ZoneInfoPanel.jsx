@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import db from '../firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
-// Países válidos del comité
 const committeeCountries = [
   "Afghanistan", "Mali", "Bangladesh", "Myanmar", "Belgium", "Norway", "Brazil", "Pakistan",
   "Burkina Faso", "Palestine", "Canada", "Philippines", "China", "Poland", "Democratic Republic of the Congo",
@@ -40,20 +39,20 @@ const ZoneInfoPanel = ({ incident }) => {
   const [showMeasures, setShowMeasures] = useState(false);
 
   const zone = incident?.zone;
-  const incidentId = incident?.id;
+  const docId = incident?.key || incident?.country?.toLowerCase().replace(/[^a-z]/g, '') || null;
 
-  // 🔽 Cargar selección al hacer click en un marcador
   useEffect(() => {
     const fetchSelection = async () => {
-      if (!incidentId) return;
+      if (!docId) return;
 
       try {
-        const docRef = doc(db, 'zones', incidentId);
+        const docRef = doc(db, 'zones', docId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setSelectedCountries(docSnap.data().countries || []);
-          setTempSelection(docSnap.data().countries || []);
+          const countries = docSnap.data().countries || [];
+          setSelectedCountries(countries);
+          setTempSelection(countries);
           setEditing(false);
         } else {
           setSelectedCountries([]);
@@ -66,12 +65,13 @@ const ZoneInfoPanel = ({ incident }) => {
     };
 
     fetchSelection();
-  }, [incidentId]);
+  }, [docId]);
 
-  // ✅ Guardar en Firestore
   const handleSave = async () => {
+    if (!docId) return;
+
     try {
-      await setDoc(doc(db, 'zones', incidentId), {
+      await setDoc(doc(db, 'zones', docId), {
         countries: tempSelection
       });
       setSelectedCountries(tempSelection);
@@ -103,17 +103,10 @@ const ZoneInfoPanel = ({ incident }) => {
       <div>
         <h4>Solutions by country:</h4>
 
-        {selectedCountries.length > 0 && !editing ? (
-          <>
-            <ul>
-              {selectedCountries.map((c) => <li key={c}>{c}</li>)}
-            </ul>
-            <button onClick={() => setEditing(true)}>Edit Selection</button>
-          </>
-        ) : (
+        {editing ? (
           <>
             <div style={{
-              maxHeight: 100,
+              maxHeight: 120,
               overflowY: 'scroll',
               border: '1px solid #ccc',
               padding: '0.5rem',
@@ -133,25 +126,56 @@ const ZoneInfoPanel = ({ incident }) => {
                 </div>
               ))}
             </div>
-            <button onClick={handleSave}>Save Selection</button>
+
+            {tempSelection.length > 0 && (
+              <>
+                <p><b>Selected:</b></p>
+                <ul>
+                  {tempSelection.map((c) => <li key={c}>{c}</li>)}
+                </ul>
+              </>
+            )}
+
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button onClick={handleSave}>Save Selection</button>
+              <button onClick={() => setEditing(false)}>Cancel</button>
+            </div>
+          </>
+        ) : (
+          <>
+            {selectedCountries.length > 0 ? (
+              <>
+                <ul>
+                  {selectedCountries.map((c) => <li key={c}>{c}</li>)}
+                </ul>
+                <button onClick={() => {
+                  setEditing(true);
+                  setTempSelection(selectedCountries);
+                }}>
+                  Edit Selection
+                </button>
+              </>
+            ) : (
+              <>
+                <p style={{ color: '#777' }}>No country selected yet.</p>
+                <button onClick={() => setEditing(true)}>Select Countries</button>
+              </>
+            )}
           </>
         )}
 
-        {selectedCountries.length > 0 && (
-          <>
-            <button onClick={() => setShowMeasures(!showMeasures)} style={{ marginTop: '1rem' }}>
-              {showMeasures ? "Hide" : "Show"} Recommended Measures (HZRF/HPAM)
-            </button>
-            {showMeasures && (
-              <div style={{ marginTop: '1rem' }}>
-                <ul>
-                  {zoneStrategies[zone].map((measure, i) => (
-                    <li key={i}>{measure}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </>
+        <button onClick={() => setShowMeasures(!showMeasures)} style={{ marginTop: '1rem' }}>
+          {showMeasures ? "Hide" : "Show"} Recommended Measures (HZRF/HPAM)
+        </button>
+
+        {showMeasures && (
+          <div style={{ marginTop: '1rem' }}>
+            <ul>
+              {zoneStrategies[zone].map((measure, i) => (
+                <li key={i}>{measure}</li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
 
