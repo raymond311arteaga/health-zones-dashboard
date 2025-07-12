@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import db from '../firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 // Países válidos del comité
 const committeeCountries = [
@@ -33,53 +35,113 @@ const zoneStrategies = {
 
 const ZoneInfoPanel = ({ incident }) => {
   const [selectedCountries, setSelectedCountries] = useState([]);
+  const [tempSelection, setTempSelection] = useState([]);
+  const [editing, setEditing] = useState(false);
   const [showMeasures, setShowMeasures] = useState(false);
 
-  const handleCountryChange = (e) => {
+  const zone = incident?.zone;
+  const incidentId = incident?.id;
+
+  // 🔽 Cargar selección al hacer click en un marcador
+  useEffect(() => {
+    const fetchSelection = async () => {
+      if (!incidentId) return;
+
+      try {
+        const docRef = doc(db, 'zones', incidentId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setSelectedCountries(docSnap.data().countries || []);
+          setTempSelection(docSnap.data().countries || []);
+          setEditing(false);
+        } else {
+          setSelectedCountries([]);
+          setTempSelection([]);
+          setEditing(true);
+        }
+      } catch (error) {
+        console.error("Error fetching Firestore data:", error);
+      }
+    };
+
+    fetchSelection();
+  }, [incidentId]);
+
+  // ✅ Guardar en Firestore
+  const handleSave = async () => {
+    try {
+      await setDoc(doc(db, 'zones', incidentId), {
+        countries: tempSelection
+      });
+      setSelectedCountries(tempSelection);
+      setEditing(false);
+    } catch (error) {
+      console.error("Error saving to Firestore:", error);
+    }
+  };
+
+  const handleChange = (e) => {
     const { value, checked } = e.target;
-    setSelectedCountries((prev) =>
+    setTempSelection((prev) =>
       checked ? [...prev, value] : prev.filter((c) => c !== value)
     );
   };
 
-  const zone = incident?.zone;
+  if (!incident) {
+    return <p style={{ fontStyle: 'italic', color: '#666' }}>Click a marker to view zone information.</p>;
+  }
 
   return (
     <div>
-      {!incident ? (
-        <>
-          <p style={{ fontStyle: 'italic', color: '#666' }}>Click a marker to view zone information.</p>
-        </>
-      ) : (
-        <>
-          <h2 style={{ color: zone === "Red" ? "#cc0000" : zone === "Yellow" ? "#e6b800" : "#28a745" }}>
-            {incident.location}, {incident.country}
-          </h2>
-          <p><b>Zone Level:</b> {zone}</p>
-          <p><b>Description:</b> {incident.description}</p>
+      <h2 style={{ color: zone === "Red" ? "#cc0000" : zone === "Yellow" ? "#e6b800" : "#28a745" }}>
+        {incident.location}, {incident.country}
+      </h2>
+      <p><b>Zone Level:</b> {zone}</p>
+      <p><b>Description:</b> {incident.description}</p>
 
-          <div>
-            <h4>Show solutions by country:</h4>
-            <div style={{ maxHeight: 100, overflowY: 'scroll', border: '1px solid #ccc', padding: '0.5rem', marginBottom: '1rem' }}>
+      <div>
+        <h4>Solutions by country:</h4>
+
+        {selectedCountries.length > 0 && !editing ? (
+          <>
+            <ul>
+              {selectedCountries.map((c) => <li key={c}>{c}</li>)}
+            </ul>
+            <button onClick={() => setEditing(true)}>Edit Selection</button>
+          </>
+        ) : (
+          <>
+            <div style={{
+              maxHeight: 100,
+              overflowY: 'scroll',
+              border: '1px solid #ccc',
+              padding: '0.5rem',
+              marginBottom: '1rem'
+            }}>
               {committeeCountries.map((country) => (
                 <div key={country}>
                   <label>
                     <input
                       type="checkbox"
                       value={country}
-                      onChange={handleCountryChange}
-                      checked={selectedCountries.includes(country)}
+                      onChange={handleChange}
+                      checked={tempSelection.includes(country)}
                     />
                     {` ${country}`}
                   </label>
                 </div>
               ))}
             </div>
+            <button onClick={handleSave}>Save Selection</button>
+          </>
+        )}
 
-            <button onClick={() => setShowMeasures(!showMeasures)}>
+        {selectedCountries.length > 0 && (
+          <>
+            <button onClick={() => setShowMeasures(!showMeasures)} style={{ marginTop: '1rem' }}>
               {showMeasures ? "Hide" : "Show"} Recommended Measures (HZRF/HPAM)
             </button>
-
             {showMeasures && (
               <div style={{ marginTop: '1rem' }}>
                 <ul>
@@ -89,18 +151,18 @@ const ZoneInfoPanel = ({ incident }) => {
                 </ul>
               </div>
             )}
-          </div>
+          </>
+        )}
+      </div>
 
-          <div style={{ marginTop: '2rem' }}>
-            <h4>Color legend:</h4>
-            <ul>
-              <li><b style={{ color: '#cc0000' }}>Red:</b> Total collapse – immediate trauma response</li>
-              <li><b style={{ color: '#e6b800' }}>Yellow:</b> Limited access – field clinics & volunteer support</li>
-              <li><b style={{ color: '#28a745' }}>Green:</b> Recovery phase – training & infrastructure</li>
-            </ul>
-          </div>
-        </>
-      )}
+      <div style={{ marginTop: '2rem' }}>
+        <h4>Color legend:</h4>
+        <ul>
+          <li><b style={{ color: '#cc0000' }}>Red:</b> Total collapse – immediate trauma response</li>
+          <li><b style={{ color: '#e6b800' }}>Yellow:</b> Limited access – field clinics & volunteer support</li>
+          <li><b style={{ color: '#28a745' }}>Green:</b> Recovery phase – training & infrastructure</li>
+        </ul>
+      </div>
     </div>
   );
 };
