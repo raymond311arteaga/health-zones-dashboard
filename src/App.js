@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
+import MapView from './components/MapView';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app-body">
+      <header className="app-header">
+        <div className="header-left">
+          <img src="/sochum-logo.png" alt="SOCHUM Logo" className="logo" />
+          <div>
+            <h1>Afghanistan’s Health Zones Conflict Tracker</h1>
+            <p>SOCHUM: Protecting Health in Conflict Zones</p>
+          </div>
+        </div>
       </header>
+      <MapView />
     </div>
   );
 }
