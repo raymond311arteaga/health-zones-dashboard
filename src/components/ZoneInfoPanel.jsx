@@ -1,4 +1,3 @@
-// src/components/ZoneInfoPanel.jsx
 import React, { useEffect, useState } from 'react';
 import db from '../firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
@@ -41,7 +40,6 @@ const ZoneInfoPanel = ({ incident }) => {
 
   const zone = incident?.zone;
   const docId = incident?.key || incident?.country?.toLowerCase().replace(/[^a-z]/g, '') || null;
-
 
   useEffect(() => {
     const fetchSelection = async () => {
@@ -108,26 +106,24 @@ const ZoneInfoPanel = ({ incident }) => {
         {editing ? (
           <>
             <div style={{
-              maxHeight: 100,
+              maxHeight: 120,
               overflowY: 'scroll',
               border: '1px solid #ccc',
               padding: '0.5rem',
               marginBottom: '1rem'
             }}>
-              {committeeCountries
-                .filter((country) => !selectedCountries.includes(country))
-                .map((country) => (
-                  <div key={country}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        value={country}
-                        onChange={handleChange}
-                        checked={tempSelection.includes(country)}
-                      />
-                      {` ${country}`}
-                    </label>
-                  </div>
+              {committeeCountries.map((country) => (
+                <div key={country}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      value={country}
+                      onChange={handleChange}
+                      checked={tempSelection.includes(country)}
+                    />
+                    {` ${country}`}
+                  </label>
+                </div>
               ))}
             </div>
 

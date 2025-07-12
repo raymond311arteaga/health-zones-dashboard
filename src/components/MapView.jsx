@@ -10,17 +10,17 @@ const zoneIcons = {
   Red: new L.Icon({
     iconUrl: process.env.PUBLIC_URL + '/icons/marcador-rojo.png',
     iconSize: [45, 45],
-    iconAnchor: [45, 45]
+    iconAnchor: [22.5, 45]
   }),
   Yellow: new L.Icon({
     iconUrl: process.env.PUBLIC_URL + '/icons/marcador-amarillo.png',
     iconSize: [45, 45],
-    iconAnchor: [45, 45]
+    iconAnchor: [22.5, 45]
   }),
   Green: new L.Icon({
     iconUrl: process.env.PUBLIC_URL + '/icons/marcador-verde.png',
     iconSize: [45, 45],
-    iconAnchor: [45, 45]
+    iconAnchor: [22.5, 45]
   })
 };
 
