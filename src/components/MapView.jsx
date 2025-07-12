@@ -5,12 +5,26 @@ import { incidents } from './IncidentLog';
 import ZoneInfoPanel from './ZoneInfoPanel';
 import 'leaflet/dist/leaflet.css';
 
-// Unificado: mismo ícono, diferentes colores
-const baseIconUrl = 'https://cdn-icons-png.flaticon.com/512/484/484167.png';
+// Íconos de marcador por color
 const zoneIcons = {
-  Red: new L.Icon({ iconUrl: baseIconUrl, iconSize: [36, 36], iconAnchor: [18, 36], className: 'red-marker' }),
-  Yellow: new L.Icon({ iconUrl: baseIconUrl, iconSize: [36, 36], iconAnchor: [18, 36], className: 'yellow-marker' }),
-  Green: new L.Icon({ iconUrl: baseIconUrl, iconSize: [36, 36], iconAnchor: [18, 36], className: 'green-marker' })
+  Red: new L.Icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png',
+    iconSize: [34, 34],
+    iconAnchor: [17, 34],
+    className: 'marker-red'
+  }),
+  Yellow: new L.Icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png',
+    iconSize: [34, 34],
+    iconAnchor: [17, 34],
+    className: 'marker-yellow'
+  }),
+  Green: new L.Icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png',
+    iconSize: [34, 34],
+    iconAnchor: [17, 34],
+    className: 'marker-green'
+  })
 };
 
 const MapView = () => {
