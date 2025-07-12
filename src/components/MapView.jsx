@@ -3,25 +3,14 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { incidents } from './IncidentLog';
 import ZoneInfoPanel from './ZoneInfoPanel';
-import MapLegend from './MapLegend';
 import 'leaflet/dist/leaflet.css';
 
+// Unificado: mismo ícono, diferentes colores
+const baseIconUrl = 'https://cdn-icons-png.flaticon.com/512/484/484167.png';
 const zoneIcons = {
-  Red: new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/1828/1828665.png',
-    iconSize: [36, 36],
-    iconAnchor: [18, 36]
-  }),
-  Yellow: new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/1828/1828884.png',
-    iconSize: [36, 36],
-    iconAnchor: [18, 36]
-  }),
-  Green: new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/1828/1828885.png',
-    iconSize: [36, 36],
-    iconAnchor: [18, 36]
-  })
+  Red: new L.Icon({ iconUrl: baseIconUrl, iconSize: [36, 36], iconAnchor: [18, 36], className: 'red-marker' }),
+  Yellow: new L.Icon({ iconUrl: baseIconUrl, iconSize: [36, 36], iconAnchor: [18, 36], className: 'yellow-marker' }),
+  Green: new L.Icon({ iconUrl: baseIconUrl, iconSize: [36, 36], iconAnchor: [18, 36], className: 'green-marker' })
 };
 
 const MapView = () => {
@@ -49,8 +38,8 @@ const MapView = () => {
             </Marker>
           ))}
         </MapContainer>
-        <MapLegend />
       </div>
+
       <div style={{
         width: '370px',
         padding: '1.5rem',

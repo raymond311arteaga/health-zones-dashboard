@@ -9,8 +9,8 @@ function App() {
         <div className="header-left">
           <img src="/sochum-logo.png" alt="SOCHUM Logo" className="logo" />
           <div>
-            <h1>Health Zones Conflict Tracker</h1>
-            <p>Simulación ONU – Comité SOCHUM</p>
+            <h1>Afghanistan’s Health Zones Conflict Tracker</h1>
+            <p>SOCHUM: Protecting Health in Conflict Zones</p>
           </div>
         </div>
       </header>

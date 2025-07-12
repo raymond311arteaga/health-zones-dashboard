@@ -93,6 +93,6 @@ export const incidents = [
     zone: "Red",
     location: "Juba",
     position: [4.85, 31.60],
-    description: "UN convoy with medicine ambushed on rural road."
+    description: "UN convoy with medicine ambushed."
   }
 ];
