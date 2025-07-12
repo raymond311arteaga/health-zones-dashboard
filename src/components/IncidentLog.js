@@ -1,6 +1,7 @@
 export const incidents = [
   {
     id: 1,
+    key: "afghanistan",
     country: "Afghanistan",
     zone: "Red",
     location: "Kabul",
@@ -9,6 +10,7 @@ export const incidents = [
   },
   {
     id: 2,
+    key: "palestine",
     country: "Palestine",
     zone: "Red",
     location: "Gaza City",
@@ -17,6 +19,7 @@ export const incidents = [
   },
   {
     id: 3,
+    key: "syria",
     country: "Syria",
     zone: "Red",
     location: "Aleppo",
@@ -25,6 +28,7 @@ export const incidents = [
   },
   {
     id: 4,
+    key: "ukraine",
     country: "Ukraine",
     zone: "Yellow",
     location: "Donetsk",
@@ -33,6 +37,7 @@ export const incidents = [
   },
   {
     id: 5,
+    key: "yemen",
     country: "Yemen",
     zone: "Red",
     location: "Sana'a",
@@ -41,6 +46,7 @@ export const incidents = [
   },
   {
     id: 6,
+    key: "sudan",
     country: "Sudan",
     zone: "Yellow",
     location: "Khartoum",
@@ -49,6 +55,7 @@ export const incidents = [
   },
   {
     id: 7,
+    key: "myanmar",
     country: "Myanmar",
     zone: "Red",
     location: "Rakhine",
@@ -57,6 +64,7 @@ export const incidents = [
   },
   {
     id: 8,
+    key: "haiti",
     country: "Haiti",
     zone: "Green",
     location: "Port-au-Prince",
@@ -65,6 +73,7 @@ export const incidents = [
   },
   {
     id: 9,
+    key: "drc",
     country: "Democratic Republic of the Congo",
     zone: "Yellow",
     location: "Goma",
@@ -73,6 +82,7 @@ export const incidents = [
   },
   {
     id: 10,
+    key: "ethiopia",
     country: "Ethiopia",
     zone: "Red",
     location: "Tigray",
@@ -81,6 +91,7 @@ export const incidents = [
   },
   {
     id: 11,
+    key: "russia",
     country: "Russia",
     zone: "Green",
     location: "Belgorod",
@@ -89,6 +100,7 @@ export const incidents = [
   },
   {
     id: 12,
+    key: "southsudan",
     country: "South Sudan",
     zone: "Red",
     location: "Juba",

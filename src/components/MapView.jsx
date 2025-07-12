@@ -5,22 +5,22 @@ import { incidents } from './IncidentLog';
 import ZoneInfoPanel from './ZoneInfoPanel';
 import 'leaflet/dist/leaflet.css';
 
-// Íconos de marcador por zona, misma figura distinta URL de color
+// Íconos de marcador por zona con imágenes locales
 const zoneIcons = {
   Red: new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png', // rojo
-    iconSize: [34, 34],
-    iconAnchor: [17, 34]
+    iconUrl: process.env.PUBLIC_URL + '/icons/marcador-rojo.png',
+    iconSize: [45, 45],
+    iconAnchor: [45, 45]
   }),
   Yellow: new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png', // amarillo (reemplaza URL)
-    iconSize: [34, 34],
-    iconAnchor: [17, 34]
+    iconUrl: process.env.PUBLIC_URL + '/icons/marcador-amarillo.png',
+    iconSize: [45, 45],
+    iconAnchor: [45, 45]
   }),
   Green: new L.Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/484/484167.png', // verde (reemplaza URL)
-    iconSize: [34, 34],
-    iconAnchor: [17, 34]
+    iconUrl: process.env.PUBLIC_URL + '/icons/marcador-verde.png',
+    iconSize: [45, 45],
+    iconAnchor: [45, 45]
   })
 };
 
